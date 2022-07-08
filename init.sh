@@ -12,10 +12,10 @@ sudo /etc/init.d/nginx restart
 
 # gunicorn
 sudo rm -f $GUNICORN_DIR/*
-sudo ln -sf $PROJ_DIR/etc/hello.conf	$GUNICORN_DIR/hello.conf
-sudo ln -sf $PROJ_DIR/etc/ask.conf		$GUNICORN_DIR/ask.conf
+sudo ln -sf $PROJ_DIR/etc/hello.conf $GUNICORN_DIR/hello.conf
+sudo ln -sf $PROJ_DIR/etc/ask.conf $GUNICORN_DIR/ask.conf
 sudo service gunicorn restart
 sudo /etc/init.d/gunicorn restart
 
 # MySQL
-﻿sudo /etc/init.d/mysql start﻿
+﻿sudo /etc/init.d/mysql start
