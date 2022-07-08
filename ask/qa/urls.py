@@ -2,11 +2,11 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
-    path('/', views.test, 'home'),
-    path('/login/', views.test, name='login'),
-    path('/signup/', views.test, name='signup'),
-    path('/question/<int:id>/', views.test, name='question'),
-    path('/ask/', views.test, name='ask'),
-    path('/popular/', views.test, name='popular'),
-    path('/new/', views.test, 'new'),
+    url(r'^$', views.test, 'home'),
+    url(r'^login/$', views.test, name='login'),
+    url(r'^signup/$', views.test, name='signup'),
+    url(r'^question/(\d+)/$', views.test, name='question'),
+    url(r'^ask/$', views.test, name='ask'),
+    url(r'^popular/$', views.test, name='popular'),
+    url(r'^new/$', views.test, 'new'),
 ]
