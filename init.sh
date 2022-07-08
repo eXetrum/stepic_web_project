@@ -11,7 +11,7 @@ sudo rm -rf $NGINX_DIR/sites-enabled/default
 sudo /etc/init.d/nginx restart
 
 # gunicorn
-sudo rm -f $GUNICORN_DIR*
+sudo rm -f $GUNICORN_DIR/*
 sudo ln -sf $PROJ_DIR/etc/hello.conf	$GUNICORN_DIR/hello.conf
 sudo ln -sf $PROJ_DIR/etc/ask.conf		$GUNICORN_DIR/ask.conf
 sudo service gunicorn restart
