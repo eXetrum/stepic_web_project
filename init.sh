@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 WORK_DIR="/home/box"
 PROJ_DIR="$WORK_DIR/web"
