@@ -23,6 +23,8 @@ class QuestionManager(models.Model):
 # - вопрос
 class Question(models.Model):
     
+    objects = QuestionManager() 
+
     # - заголовок вопроса
     title = models.CharField(max_length=255)
     
