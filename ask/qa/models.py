@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 # - менеджер модели Question
-class QuestionManager(models.Model):
+class QuestionManager(models.Manager):
     
     # - метод возвращающий последние добавленные вопросы
     def new(self):
