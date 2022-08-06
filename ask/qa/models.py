@@ -8,6 +8,18 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# - менеджер модели Question
+class QuestionManager(models.Model):
+    
+    # - метод возвращающий последние добавленные вопросы
+    def new(self):
+        pass
+
+    # - метод возвращающий вопросы отсортированные по рейтингу
+    def popular(self):
+        pass
+
+
 # - вопрос
 class Question(models.Model):
     
