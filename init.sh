@@ -5,7 +5,7 @@ PROJ_DIR="$WORK_DIR/web"
 NGINX_DIR="/etc/nginx"
 GUNICORN_DIR="/etc/gunicorn.d"
 
-DB_HOSTNAME="localhost"
+DB_HOST="localhost"
 DB_NAME="stepic_web_project"
 DB_USER="box"
 DB_PASSWORD=""
