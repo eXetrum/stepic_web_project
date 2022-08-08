@@ -7,20 +7,16 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+from django.core.paginator import Paginator
+
 # Create your models here.
 
 # - менеджер модели Question
 class QuestionManager(models.Manager):
     
     # - метод возвращающий последние добавленные вопросы
-    def new(self, page=None, limit=10):
-        qs = self.order_by('-added_at')
-        try:
-            page = int(page)
-        except ValueError:
-            page = 1
-            
-        return qs[limit * (page - 1): limit]
+    def new(self):
+        return self.order_by('-pk')
 
     # - метод возвращающий вопросы отсортированные по рейтингу
     def popular(self):
