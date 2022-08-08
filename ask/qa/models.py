@@ -13,7 +13,7 @@ class QuestionManager(models.Manager):
     
     # - метод возвращающий последние добавленные вопросы
     def new(self):
-        pass
+        return self.order_by('-added_at')
 
     # - метод возвращающий вопросы отсортированные по рейтингу
     def popular(self):
