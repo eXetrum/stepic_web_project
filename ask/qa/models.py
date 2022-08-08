@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 from __future__ import unicode_literals
+from multiprocessing.sharedctypes import Value
 
 from django.db import models
 
@@ -12,8 +13,14 @@ from django.contrib.auth.models import User
 class QuestionManager(models.Manager):
     
     # - метод возвращающий последние добавленные вопросы
-    def new(self):
-        return self.order_by('-added_at')
+    def new(self, page=None, limit=10):
+        qs = self.order_by('-added_at')
+        try:
+            page = int(page)
+        except ValueError:
+            page = 1
+            
+        return qs[limit * (page - 1): limit]
 
     # - метод возвращающий вопросы отсортированные по рейтингу
     def popular(self):
