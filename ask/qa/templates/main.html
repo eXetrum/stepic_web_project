@@ -7,7 +7,7 @@
         {% else %}
             <li>
         {% endif %}
-            <a href="{{ pagination.baseurl }} {{ p.number }}">{{ p.number }}</a>
+            <a href="{{ pagination.baseurl }} {{ p.get_absolute_url }}">{{ p }}</a>
             </li>
     {% endfor %}
     </ul>
