@@ -46,7 +46,7 @@ def home(request):
     qs = Question.objects.new()
     paginator, page = paginate(request, qs, LIMIT)
 
-    return render(request, 'home.html', { 
+    return render(request, 'list.html', { 
         'paginator': paginator,
         'page': page,
     })
@@ -57,7 +57,7 @@ def popular(request):
     qs = Question.objects.popular()
     paginator, page = paginate(request, qs, LIMIT)
 
-    return render(request, 'popular.html', { 
+    return render(request, 'list.html', { 
         'paginator': paginator,
         'page': page,
     })

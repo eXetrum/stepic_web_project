@@ -1,4 +1,4 @@
-{% if len(page.object_list) %}
+{% if page.object_list | length %}
 <ul>
 {% for item in page.object_list %}
     <li><a href="{{item.get_absolute_url}}">{{item}}</a></li>    

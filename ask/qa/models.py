@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 
 # - менеджер модели Question
 class QuestionManager(models.Manager):
-    LIMIT = 10
     # - метод возвращающий последние добавленные вопросы
     def new(self):
         return self.order_by('-pk')
