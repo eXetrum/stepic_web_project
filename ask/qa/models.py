@@ -16,7 +16,7 @@ class QuestionManager(models.Manager):
 
     # - метод возвращающий вопросы отсортированные по рейтингу
     def popular(self):
-        pass
+        return self.order_by('-rating')
 
 
 # - вопрос

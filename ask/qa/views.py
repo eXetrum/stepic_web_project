@@ -11,15 +11,24 @@ def test(request, *args, **kwargs):
     return HttpResponse('OK')
 
 
-def paginate(request):
-    LIMIT = 10
+def paginate(request, qs, limit=10):
+    MIN_LIMIT, MAX_LIMIT, DEFAULT_LIMIT = 1, 100, 10
+    try:
+        limit = int(limit)
+        if limit < MIN_LIMIT or limit > MAX_LIMIT:
+            limit = DEFAULT_LIMIT
+
+    except ValueError:
+        raise Http404
+    
     try:
         pageNum = int(request.GET.get('page', 1))
     except ValueError:
         raise Http404
     
-    qs = Question.objects.new()
-    paginator = Paginator(qs, LIMIT)
+
+    
+    paginator = Paginator(qs, limit)
     paginator.baseurl = '/?page='
 
     try:
@@ -32,11 +41,23 @@ def paginate(request):
     
 
 @require_GET
-def main(request):
-    paginator, page = paginate(request)
-      
-    return render(request, 'main.html', { 
+def home(request):
+    LIMIT = 10
+    qs = Question.objects.new()
+    paginator, page = paginate(request, qs, LIMIT)
+
+    return render(request, 'home.html', { 
         'paginator': paginator,
         'page': page,
     })
-    
+
+@require_GET
+def popular(request):
+    LIMIT = 10
+    qs = Question.objects.popular()
+    paginator, page = paginate(request, qs, LIMIT)
+
+    return render(request, 'popular.html', { 
+        'paginator': paginator,
+        'page': page,
+    })
