@@ -41,6 +41,8 @@ class Question(models.Model):
     # - список пользователей, поставивших "лайк"
     likes = models.ManyToManyField(User, related_name='likes_set')
 
+    answers = models.ManyToManyField(Answer)
+
     def __unicode__(self):
         return self.title
 
