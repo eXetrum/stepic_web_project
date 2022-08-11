@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from multiprocessing.sharedctypes import Value
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
 
 # Create your models here.
 
@@ -13,10 +12,7 @@ class QuestionManager(models.Manager):
     LIMIT = 10
     # - метод возвращающий последние добавленные вопросы
     def new(self):
-        qs = self.order_by('-pk')
-        paginator = Paginator(qs, QuestionManager.LIMIT)
-        paginator.baseurl = '/?page='
-        return paginator
+        return self.order_by('-pk')
 
     # - метод возвращающий вопросы отсортированные по рейтингу
     def popular(self):
