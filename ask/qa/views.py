@@ -65,7 +65,7 @@ def popular(request):
 @require_GET
 def question(request, id):
     try:
-        question = Question.objects.get(pk=id)
+        question = Question.objects.filter(pk=id)
         return render(request, 'question.html', { 
             'question': question,
         })
