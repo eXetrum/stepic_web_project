@@ -14,11 +14,22 @@ def test(request, *args, **kwargs):
 def main(request):
     try:
         pageNum = request.GET.get('page', 1)
-        paginator = Question.objects.new()
+        try:
+            pageNum = int(pageNum)
+        except:
+            return Http404
 
+        paginator = Question.objects.new()
+        
+        if(pageNum < 1 or pageNum > paginator.num_pages):
+            return Http404
+
+        page = paginator.page(pageNum)
+        
         return render(request, 'main.html', { 
             'paginator': paginator,
-            'page': paginator.page(pageNum),
+            'page': page,
         })
     except:
         return Http404
+    

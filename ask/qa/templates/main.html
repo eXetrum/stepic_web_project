@@ -1,7 +1,9 @@
+{% if len(page.object_list) %}
 <ul>
 {% for item in page.object_list %}
     <li><a href="{{item.get_absolute_url}}">{{item}}</a></li>    
 {% endfor %}
 </ul>
+{% endif %}
 
 {% include "pagination.html" %}
