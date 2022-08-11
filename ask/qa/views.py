@@ -14,10 +14,10 @@ def test(request, *args, **kwargs):
 def main(request):
     try:
         pageNum = request.GET.get('page', 1)
-        try:
-            pageNum = int(pageNum)
-        except ValueError:
-            return Http404
+        #try:
+        #    pageNum = int(pageNum)
+        #except ValueError:
+        #    return Http404
 
         paginator = Question.objects.new()
         
