@@ -16,7 +16,7 @@ def main(request):
         pageNum = request.GET.get('page', 1)
         try:
             pageNum = int(pageNum)
-        except:
+        except ValueError:
             return Http404
 
         paginator = Question.objects.new()
