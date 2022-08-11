@@ -67,7 +67,7 @@ def question(request, id):
     try:
         question = Question.objects.get(pk=id)
         return render(request, 'question.html', { 
-            'question': id,
+            'question': question,
         })
     except Question.DoesNotExist:
         raise Http404    
