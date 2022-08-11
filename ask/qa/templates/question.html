@@ -5,7 +5,7 @@
     {% if question.answer_set %}
         <ul>
         {% for answer in question.answer_set %}
-            <li>{{ answer.text }}</li>    
+            <li>{{ answer }}</li>    
         {% endfor %}
         </ul>
     {% else %}

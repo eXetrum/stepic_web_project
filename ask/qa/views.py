@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
 
-from .models import Question 
+from .models import Answer, Question 
 
 
 def test(request, *args, **kwargs):
@@ -66,6 +66,7 @@ def popular(request):
 def question(request, id):
     try:
         object = Question.objects.get(pk=id)
+        #answers = Answer.objects.filter(id)
         return render(request, 'question.html', { 
             'question': object,
         })

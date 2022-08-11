@@ -69,7 +69,7 @@ class Answer(models.Model):
     author = models.ForeignKey(User)
 
     def __unicode__(self):
-        return self.title
+        return self.text
 
     def get_absolute_url(self):
         return '/answer/%d/' % self.pk
