@@ -2,12 +2,6 @@
 <div>
     <h2>{{ question.title }}</h2>
     <p>{{ question.text }}</p>
-    {% if question.answer_set %}
-        <ul>
-        {% for answer in question.answer_set %}
-            <li>{{ answer.text }}</li>    
-        {% endfor %}
-        </ul>
-    {% endif %}
+    
 </div>
 {% endif %}
