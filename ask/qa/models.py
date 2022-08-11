@@ -12,7 +12,7 @@ from django.core.paginator import Paginator
 class QuestionManager(models.Manager):
     LIMIT = 10
     # - метод возвращающий последние добавленные вопросы
-    def new(self, page=1):
+    def new(self):
         qs = self.order_by('-pk')
         paginator = Paginator(qs, QuestionManager.LIMIT)
         paginator.baseurl = '/?page='

@@ -12,11 +12,13 @@ def test(request, *args, **kwargs):
 
 @require_GET
 def main(request):
-    
-    pageNum = request.GET.get('page', 1)
-    paginator = Question.objects.new(pageNum)
+    try:
+        pageNum = request.GET.get('page', 1)
+        paginator = Question.objects.new(pageNum)
 
-    return render(request, 'main.html', { 
-        'paginator': paginator,
-        'page': paginator.page(pageNum),
-    })
+        return render(request, 'main.html', { 
+            'paginator': paginator,
+            'page': paginator.page(pageNum),
+        })
+    except:
+        return Http404
