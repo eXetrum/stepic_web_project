@@ -14,15 +14,15 @@ def test(request, *args, **kwargs):
 def main(request):
     try:
         pageNum = request.GET.get('page', 1)
-        #try:
-        #    pageNum = int(pageNum)
-        #except ValueError:
-        #    return Http404
+        try:
+            pageNum = int(pageNum)
+        except ValueError:
+            raise Http404
 
         paginator = Question.objects.new()
         
         if(pageNum < 1 or pageNum > paginator.num_pages):
-            return Http404
+            raise Http404
 
         page = paginator.page(pageNum)
         
@@ -31,5 +31,5 @@ def main(request):
             'page': page,
         })
     except:
-        return Http404
+        raise Http404
     
