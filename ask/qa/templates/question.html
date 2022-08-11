@@ -4,7 +4,7 @@
     <p>{{ question.text }}</p>
     {% if question.answer_set %}
         <ul>
-        {% for answer in question.answer_set %}
+        {% for answer in question.answer_set.all %}
             <li>{{ answer }}</li>    
         {% endfor %}
         </ul>
