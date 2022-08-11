@@ -14,7 +14,7 @@ def test(request, *args, **kwargs):
 def main(request):
     try:
         pageNum = request.GET.get('page', 1)
-        paginator = Question.objects.new(pageNum)
+        paginator = Question.objects.new()
 
         return render(request, 'main.html', { 
             'paginator': paginator,
