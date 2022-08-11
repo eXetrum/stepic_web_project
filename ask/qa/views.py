@@ -63,11 +63,11 @@ def popular(request):
     })
 
 @require_GET
-def question(request, question_id):
+def question(request, id):
     try:
-        question = Question.objects.get(pk=question_id)
+        question = Question.objects.get(pk=id)
         return render(request, 'question.html', { 
-            'question': question_id,
+            'question': id,
         })
     except Question.DoesNotExist:
         raise Http404    
