@@ -61,3 +61,14 @@ def popular(request):
         'paginator': paginator,
         'page': page,
     })
+
+@require_GET
+def question(request, id):
+    try:
+        question = Question.objects.get(pk=id)
+        return render(request, 'question.html', { 
+            'question': question,
+        })
+    except:
+        raise Http404
+    
