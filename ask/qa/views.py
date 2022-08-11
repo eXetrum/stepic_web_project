@@ -13,10 +13,10 @@ def test(request, *args, **kwargs):
 @require_GET
 def main(request):
     
-    page = request.GET.get('page', 1)
-    paginator = Question.objects.new(page)
+    pageNum = request.GET.get('page', 1)
+    paginator = Question.objects.new(pageNum)
 
     return render(request, 'main.html', { 
         'paginator': paginator,
-        'page': paginator.page(page),
+        'page': paginator.page(pageNum),
     })

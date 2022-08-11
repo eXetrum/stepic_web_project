@@ -1,0 +1,15 @@
+{% if paginator.num_pages > 1 %}
+<nav>
+    <ul class="pagination">
+    {% for pageNumber in paginator.page_range %}
+        {% if pageNumber == page.number %}
+            <li class="active">
+        {% else %}
+            <li>
+        {% endif %}
+            <a href="{{ pagination.baseurl }}{{pageNumber}}">{{ pageNumber }}</a>
+            </li>
+    {% endfor %}
+    </ul>
+</nav>
+{% endif %}

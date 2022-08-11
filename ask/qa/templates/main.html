@@ -1,15 +1,7 @@
-{% if paginator.num_pages > 1 %}
-<nav>
-    <ul class="pagination">
-    {% for p in paginator.page_range %}
-        {% if p.number == page.number %}
-            <li class="active">
-        {% else %}
-            <li>
-        {% endif %}
-            <a href="{{ pagination.baseurl }} {{ p.get_absolute_url }}">{{ p }}</a>
-            </li>
-    {% endfor %}
-    </ul>
-</nav>
-{% endif %}
+<ul>
+{% for item in page.object_list %}
+    <li><a href="{{item.get_absolute_url}}">{{item}}</a></li>    
+{% endfor %}
+</ul>
+
+{% include "pagination.html" %}
