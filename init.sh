@@ -28,5 +28,5 @@ sudo /etc/init.d/mysql start
 sudo mysql -uroot -e "drop database $DB_NAME"
 sudo mysql -uroot -e "create database $DB_NAME"
 sudo mysql -uroot -e "grant all privileges on $DB_NAME.* to '$DB_USER'@'$DB_HOST' with grant option;"
-sudo python ~/web/ask/manage.py makemigrations
-sudo python ~/web/ask/manage.py migrate
+sudo python3 ~/web/ask/manage.py makemigrations
+sudo python3 ~/web/ask/manage.py migrate
