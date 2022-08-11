@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.home),
     url(r'^popular/$', views.popular),
-    url(r'^question/(?P<id>\d+)$', views.question),
+    url(r'^question/(?P<question_id>\d+)/$', views.question),
     url(r'^login/$', views.test),
     url(r'^signup/$', views.test),
     url(r'^ask/$', views.test),    
