@@ -81,14 +81,12 @@ def create_question(request):
     user, _ = User.objects.get_or_create(username='anonymous',
                                          email='anonymous@anonymous.com')
 
-    request.user = user
-
     if request.method == "POST":
-        form = AskForm(request.user, request.POST)
+        form = AskForm(user, request.POST)
         if form.is_valid():
             question = form.save()
             return HttpResponseRedirect(question.get_absolute_url())
     else:
-        form = AskForm(request.user)
+        form = AskForm(user)
 
     return render(request, 'create_question.html', { 'form': form })
