@@ -77,7 +77,6 @@ def show_question(request, id):
 
 
 def create_question(request):
-    raise Http404
     # No auth yet...
     request.user = request.user or User.objects.get(id=1)
 
@@ -86,8 +85,7 @@ def create_question(request):
         if form.is_valid():
             question = form.save()
             return HttpResponseRedirect(question.get_absolute_url())
-    elif request.method == "GET":
+    else:
         form = AskForm(request.user)
-        return render(request, 'create_question.html', { 'form': form })
-    
-    raise Http404
+
+    return render(request, 'create_question.html', { 'form': form })
