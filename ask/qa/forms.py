@@ -5,6 +5,11 @@ from .models import Answer, Question
 
 # - форма добавления вопроса
 class AskForm(forms.Form):
+    
+    def __init__(self, user, **kwargs):
+        self._user = user
+        super(AskForm, self).__init__(**kwargs)
+
     # - поле заголовка
     title = forms.CharField(max_length=255)
     # - поле текста вопроса
@@ -23,6 +28,7 @@ class AskForm(forms.Form):
         return self.cleaned_data 
 
     def save(self):
+        self.cleaned_data['author'] = self._user
         question = Question(**self.cleaned_data)
         question.save()
         return question
