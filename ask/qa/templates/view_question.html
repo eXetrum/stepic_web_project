@@ -2,6 +2,28 @@
 <div>
     <h2>{{ question.title }}</h2>
     <p>{{ question.text }}</p>
+
+    {% for e in form.non_field_errors %}
+        <div class="alert">{{ e }}</div>
+    {% endfor %}
+    <div class="form">
+        <form method="post" action="/question/{{question.id}}">
+          {% csrf_token %}
+            {% for field in form %}
+              <div class="form-group{% if field.errors %} alert{% endif %}">
+                <div class="form-label">
+                  {{ field.label }}
+                </div>
+                <div class="form-field">
+                  {{ field }}
+                </div>
+                {{ field.errors }}
+              </div>
+            {% endfor %}
+          <button type="submit" class="btn">Answer question</button>
+        </form>
+    </div>
+
     {% if question.answer_set %}
         <ul>
         {% for answer in question.answer_set.all %}

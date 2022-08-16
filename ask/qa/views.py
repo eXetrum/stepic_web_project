@@ -64,15 +64,18 @@ def popular(request):
         'page': page,
     })
 
-@require_GET
+
 def show_question(request, id):
-    try:
-        question = Question.objects.get(pk=id)
-        return render(request, 'view_question.html', { 
-            'question': question,
-        })
-    except Question.DoesNotExist:
-        raise Http404    
+    if request.method == "POST":
+        pass
+    elif request.method == "GET":
+        try:
+            question = Question.objects.get(pk=id)
+            return render(request, 'view_question.html', { 
+                'question': question,
+            })
+        except Question.DoesNotExist:
+            raise Http404    
 
 
 def create_question(request):
