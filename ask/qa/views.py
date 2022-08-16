@@ -3,7 +3,6 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
 
 from .forms import AskForm
 
@@ -77,15 +76,12 @@ def show_question(request, id):
 
 
 def create_question(request):
-    # No auth yet...
-    user, _ = User.objects.get_or_create(username='test', password='test')
-
     if request.method == "POST":
-        form = AskForm(user, request.POST)
+        form = AskForm(request.POST)
         if form.is_valid():
             question = form.save()
             return HttpResponseRedirect(question.get_absolute_url())
     else:
-        form = AskForm(user)
+        form = AskForm()
 
     return render(request, 'create_question.html', { 'form': form })

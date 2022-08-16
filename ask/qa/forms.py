@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*- 
 from django import forms
+from django.contrib.auth.models import User
 
 from .models import Answer, Question
 
@@ -27,7 +28,10 @@ class AskForm(forms.Form):
         return self.cleaned_data 
 
     def save(self):
-        self.cleaned_data['author'] = self.user
+        # No auth yet...
+        user, _ = User.objects.get_or_create(username='test', password='test')
+        self.cleaned_data['author'] = user
+
         question = Question(**self.cleaned_data)
         question.save()
         return question
