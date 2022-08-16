@@ -51,7 +51,7 @@ class AnswerForm(forms.Form):
         if text is None or len(text) == 0:
             raise forms.ValidationError(u'Введите текст ответа')
         
-        if question is None:
+        if question is None or question == 0:
             raise forms.ValidationError(u'Форма не валидна. Поле question не найдено')
         
         return self.cleaned_data 
