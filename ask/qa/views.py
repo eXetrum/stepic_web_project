@@ -75,7 +75,7 @@ def show_question(request, id):
         form = AnswerForm(request.POST)
         if form.is_valid():
             form.save()
-        return HttpResponseRedirect(question.get_absolute_url())
+            return HttpResponseRedirect(question.get_absolute_url())
 
     else:
         form = AnswerForm(initial={'question': question.id})
