@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-from django.contrib.auth.models import User
 from django import forms
 
 from .models import Answer, Question
@@ -7,10 +6,8 @@ from .models import Answer, Question
 # - форма добавления вопроса
 class AskForm(forms.Form):
     
-    def __init__(self, user=None, **kwargs):
-        # No auth yet...
-        self._user = user or User.objects.get(id=1)
-        super(AskForm, self).__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(AskForm, self).__init__(*args, **kwargs)
 
     # - поле заголовка
     title = forms.CharField(max_length=255)
