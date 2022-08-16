@@ -81,7 +81,7 @@ def create_question(request):
     user, _ = User.objects.get_or_create(username='anonymous',
                                          email='anonymous@anonymous.com')
 
-    request.user = request.user or user
+    request.user = user
 
     if request.method == "POST":
         form = AskForm(request.user, request.POST)
