@@ -78,7 +78,10 @@ def show_question(request, id):
 
 def create_question(request):
     # No auth yet...
-    request.user = request.user or User.objects.get(id=1)
+    user, _ = User.objects.get_or_create(username='anonymous',
+                                         email='anonymous@anonymous.com')
+
+    request.user = request.user or user
 
     if request.method == "POST":
         form = AskForm(request.user, request.POST)
