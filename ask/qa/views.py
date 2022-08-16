@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
 
-from .forms import AskForm
+from .forms import AnswerForm, AskForm
 
 from .models import Answer, Question 
 
@@ -66,16 +66,23 @@ def popular(request):
 
 
 def show_question(request, id):
+    try:
+        question = Question.objects.get(pk=id)    
+    except Question.DoesNotExist:
+        raise Http404
+
     if request.method == "POST":
-        pass
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(question.get_absolute_url())
     elif request.method == "GET":
-        try:
-            question = Question.objects.get(pk=id)
-            return render(request, 'view_question.html', { 
-                'question': question,
-            })
-        except Question.DoesNotExist:
-            raise Http404    
+        form = AnswerForm()
+        return render(request, 'view_question.html', { 
+            'question': question,
+            'form': form,
+        })
+        
 
 
 def create_question(request):
