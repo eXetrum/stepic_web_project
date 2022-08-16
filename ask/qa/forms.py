@@ -57,6 +57,9 @@ class AnswerForm(forms.Form):
         return self.cleaned_data 
 
     def save(self):
+        question = self.cleaned_data['question']
+        question = Question.objects.get(id=question)
+        self.cleaned_data['question'] = question
         answer = Answer(**self.cleaned_data)
         answer.save()
         return answer
