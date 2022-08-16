@@ -85,7 +85,8 @@ def create_question(request):
         if form.is_valid():
             question = form.save()
             return HttpResponseRedirect(question.get_absolute_url())
-    else:
+    elif request.method == "GET":
         form = AskForm(request.user)
-
-    return render(request, 'create_question.html', { 'form': form })
+        return render(request, 'create_question.html', { 'form': form })
+    
+    raise Http404
