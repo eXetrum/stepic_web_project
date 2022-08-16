@@ -77,7 +77,7 @@ def show_question(request, id):
             form.save()
             return HttpResponseRedirect(question.get_absolute_url())
     elif request.method == "GET":
-        form = AnswerForm(initial={'question': question.id})
+        form = AnswerForm(initial={'question': question})
         return render(request, 'view_question.html', { 
             'question': question,
             'form': form,
