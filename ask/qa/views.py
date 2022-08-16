@@ -1,8 +1,10 @@
 from multiprocessing.sharedctypes import Value
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator
+
+from .forms import AskForm
 
 from .models import Answer, Question 
 
@@ -63,11 +65,23 @@ def popular(request):
     })
 
 @require_GET
-def question(request, id):
+def show_question(request, id):
     try:
-        object = Question.objects.get(pk=id)
-        return render(request, 'question.html', { 
-            'question': object,
+        question = Question.objects.get(pk=id)
+        return render(request, 'view_question.html', { 
+            'question': question,
         })
     except Question.DoesNotExist:
         raise Http404    
+
+
+def create_question(request):
+    if request.method == "POST":
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question = form.save()
+            return HttpResponseRedirect(question.get_absolute_url())
+    else:
+        form = AskForm()
+
+    return render(request, 'create_question.html', { 'form': form })
