@@ -73,8 +73,9 @@ def show_question(request, id):
 
     if request.method == "POST":
         form = AnswerForm(request.POST)
-        #if form.is_valid():
-            #form.save()
+        if form.is_valid():
+            pass
+        #form.save()
         return HttpResponseRedirect(question.get_absolute_url())
 
     else:
