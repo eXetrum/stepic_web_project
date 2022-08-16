@@ -45,7 +45,16 @@ class AnswerForm(forms.Form):
     question = forms.IntegerField(widget=forms.HiddenInput)
 
     def clean(self):
-        pass
+        text = self.cleaned_data['text']
+        question = self.cleaned_data['question']
+        
+        if text is None or len(text) == 0:
+            raise forms.ValidationError(u'Введите текст ответа')
+        
+        if question is None:
+            raise forms.ValidationError(u'Форма не валидна. Поле question не найдено')
+        
+        return self.cleaned_data 
 
     def save(self):
         answer = Answer(**self.cleaned_data)
