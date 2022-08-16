@@ -45,8 +45,8 @@ class AnswerForm(forms.Form):
     question = forms.IntegerField(widget=forms.HiddenInput)
 
     def clean(self):
-        text = self.cleaned_data['text']
-        question = self.cleaned_data['question']
+        text = self.cleaned_data.get('text')
+        question = self.cleaned_data.get('question')
         
         if text is None or len(text) == 0:
             raise forms.ValidationError(u'Введите текст ответа')
