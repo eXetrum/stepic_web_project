@@ -77,6 +77,7 @@ def show_question(request, id):
 
 
 def create_question(request):
+    raise Http404
     # No auth yet...
     request.user = request.user or User.objects.get(id=1)
 
