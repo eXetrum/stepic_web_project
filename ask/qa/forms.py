@@ -58,7 +58,7 @@ class AnswerForm(forms.Form):
 
     def save(self):
         question = self.cleaned_data['question']
-        question = Question.objects.get(id=question)
+        question = Question.objects.get(pk=question)
         self.cleaned_data['question'] = question
         answer = Answer(**self.cleaned_data)
         answer.save()

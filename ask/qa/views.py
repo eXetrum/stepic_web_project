@@ -73,12 +73,11 @@ def show_question(request, id):
 
     if request.method == "POST":
         form = AnswerForm(request.POST)
-
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(question.get_absolute_url())
         raise Http404
-        
+
     elif request.method == "GET":
         form = AnswerForm(initial={'question': question.id})
         return render(request, 'view_question.html', { 
