@@ -20,7 +20,7 @@ class AskForm(forms.Form):
         if text is None or len(text) == 0:
             raise forms.ValidationError(u'Введите текст вопроса')
         
-        return "OK"
+        return self.cleaned_data 
 
     def save(self):
         question = Question(**self.cleaned_data)
