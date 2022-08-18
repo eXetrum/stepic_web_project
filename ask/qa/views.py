@@ -93,7 +93,7 @@ def show_question(request, id):
     })
         
 
-@login_required()
+#@login_required()
 def create_question(request):
     if request.method == "POST":
         form = AskForm(request.POST)
