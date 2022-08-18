@@ -136,10 +136,9 @@ def signup_page(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            url = request.POST.get('next', '/')
             if user:
                 login(request, user)
-                return HttpResponseRedirect(url)
+                return HttpResponseRedirect('/')
         else:
             error = 'Incorrect username/password'
     else:

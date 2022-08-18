@@ -13,8 +13,8 @@ urlpatterns = [
     url(r'^logout/$', views.logout_page, name='logout'),
     url(r'^new/$', views.test),
 ]
-"""
 
+'''
 urlpatterns = [
     path('', views.home, name='home'),
     path('popular/', views.popular, name='popular'),
@@ -25,4 +25,4 @@ urlpatterns = [
     path('logout/', views.logout_page, name='logout'),
     path('new/', views.test),
 ]
-"""
+'''
