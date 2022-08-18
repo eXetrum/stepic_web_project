@@ -76,13 +76,15 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stepic_web_project',
         'USER': 'box',
     }
 }
+
+LOGIN_URL='/login/'
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 
 # Password validation

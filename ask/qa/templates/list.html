@@ -1,9 +1,16 @@
-{% if page.object_list %}
-<ul>
-{% for item in page.object_list %}
-    <li><a href="{{item.get_absolute_url}}">{{item}}</a></li>    
-{% endfor %}
-</ul>
-{% endif %}
+{% extends "base.html" %}
 
-{% include "pagination.html" %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    {% if page.object_list %}
+    <ul class="list-group">
+    {% for item in page.object_list %}
+        <li class="list-group-item"><a href="{{item.get_absolute_url}}">[{{item.author}}] - {{item.title}}</a></li>    
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% include "pagination.html" %}
+
+{% endblock %}

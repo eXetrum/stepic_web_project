@@ -36,7 +36,7 @@ class Question(models.Model):
     rating = models.IntegerField(default=0)
     
     # - автор вопроса
-    author = models.ForeignKey(User, related_name='question_set')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_set')
     
     # - список пользователей, поставивших "лайк"
     likes = models.ManyToManyField(User, related_name='likes_set')
@@ -63,10 +63,10 @@ class Answer(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
 
     # - вопрос, к которому относится ответ
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     # - автор ответа
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.text

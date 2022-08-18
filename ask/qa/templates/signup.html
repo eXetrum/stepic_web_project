@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %} SignUp {% endblock %}
+
+{% block content %}
+    <div class="row justify-content-md-center">
+        <div class="col-4 bg-light p-3 mt-3 mb-3">
+            <form action="/signup/" method="POST"> 
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group{% if field.errors %} alert{% endif %}">
+                    <div class="form-label mb-3">
+                        {{ field.label }}
+                    </div>
+                    <div class="form-field mb-3">
+                        {{ field }}
+                    </div>
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+                <div class="{% if error != '' %} alert alert-danger {% endif %}" role="alert">{{error}}</div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

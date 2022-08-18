@@ -1,37 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} Create Question {% endblock %}
+
+{% block content %}
+
 {% if question %}
-<div>
-    <h2>{{ question.title }}</h2>
-    <p>{{ question.text }}</p>
+<div class="row">
+	<div class="col bg-light p-3 mt-3 mb-3">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col">
+						<h5 class="card-title"><span class="badge bg-secondary me-3">Title</span>{{ question.title }}</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h5 class="card-title"><span class="badge bg-secondary me-3">Text</span></h5>
+					</div>
+					<div class="col">
+						<p class="text-end me-3">{{ question.text }}</p>
+					</div>
+				</div>
 
-    {% for e in form.non_field_errors %}
-        <div class="alert">{{ e }}</div>
-    {% endfor %}
-    <div class="form">
-        <form method="post" action="/question/{{question.id}}/">
-          {% csrf_token %}
-            {% for field in form %}
-              <div class="form-group{% if field.errors %} alert{% endif %}">
-                <div class="form-label">
-                  {{ field.label }}
-                </div>
-                <div class="form-field">
-                  {{ field }}
-                </div>
-                {{ field.errors }}
-              </div>
-            {% endfor %}
-          <button type="submit" class="btn">Answer question</button>
-        </form>
-    </div>
+				<hr>
 
-    {% if question.answer_set %}
-        <ul>
-        {% for answer in question.answer_set.all %}
-            <li>{{ answer }}</li>    
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Нет ответов</p>
-    {% endif %}
+				{% for e in form.non_field_errors %}
+				<div class="alert">{{ e }}</div>
+				{% endfor %}
+
+				<form method="post" action="/question/{{question.id}}/">
+					{% csrf_token %}
+					{% for field in form %}
+					<div class="form-group{% if field.errors %} alert{% endif %}">
+						<div class="form-field mb-3">
+							{{ field }}
+						</div>
+						{{ field.errors }}
+					</div>
+					{% endfor %}
+					<div class="{% if error is not None and error != '' %} alert alert-danger {% endif %}" role="alert">{{error}}</div>
+                	<button type="submit" class="btn btn-primary">Answer Question</button>
+				</form>
+
+				<hr>
+
+				{% if question.answer_set.all %}
+				<ul>
+					{% for answer in question.answer_set.all %}
+						<div class="row">
+							<div class="col-3"><span class="badge bg-secondary">{{ answer.added_at | date:'Y-m-d H:i' }}</span><span class="badge bg-info">{{ answer.author }}</span></div>
+							<div class="col">{{ answer.text }}</div>
+							
+						</div>
+					{% endfor %}
+				</ul>
+				{% else %}
+					<p class="text-center">Нет ответов</p>
+				{% endif %}
+
+			</div>
+		</div>
+	
+
+    
+	</div>
 </div>
 {% endif %}
+
+{% endblock %}

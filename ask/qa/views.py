@@ -1,10 +1,12 @@
-from multiprocessing.sharedctypes import Value
+from datetime import datetime, timedelta
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
 from django.core.paginator import Paginator
 
-from .forms import AnswerForm, AskForm
+from .forms import AnswerForm, AskForm, LoginForm, SignUpForm
 
 from .models import Answer, Question 
 
@@ -49,6 +51,7 @@ def home(request):
     paginator, page = paginate(request, qs, LIMIT)
 
     return render(request, 'list.html', { 
+        'title': 'Home',
         'paginator': paginator,
         'page': page,
     })
@@ -65,7 +68,9 @@ def popular(request):
     })
 
 
+@login_required()
 def show_question(request, id):
+    error = ''
     try:
         question = Question.objects.get(pk=id)    
     except Question.DoesNotExist:
@@ -73,6 +78,7 @@ def show_question(request, id):
 
     if request.method == "POST":
         form = AnswerForm(request.POST)
+        form._user = request.user
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(question.get_absolute_url())
@@ -83,13 +89,15 @@ def show_question(request, id):
     return render(request, 'view_question.html', { 
         'question': question,
         'form': form,
+        'error': error,
     })
         
 
-
+@login_required()
 def create_question(request):
     if request.method == "POST":
         form = AskForm(request.POST)
+        form._user = request.user
         if form.is_valid():
             question = form.save()
             return HttpResponseRedirect(question.get_absolute_url())
@@ -97,3 +105,44 @@ def create_question(request):
         form = AskForm()
 
     return render(request, 'create_question.html', { 'form': form })
+
+
+def login_page(request):
+    error, url = '', request.GET.get('next', '/')
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            print('login redirect=', url)
+            if user:
+                login(request, user)
+                return HttpResponseRedirect(url)
+        else:
+            error = 'Incorrect username/password'
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', { 'form': form, 'error': error, 'next': url })
+
+def logout_page(request):
+    url = request.GET.get('next', '/')
+    logout(request)
+    return HttpResponseRedirect(url)
+
+
+def signup_page(request):
+    error = ''
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            url = request.POST.get('next', '/')
+            if user:
+                login(request, user)
+                return HttpResponseRedirect(url)
+        else:
+            error = 'Incorrect username/password'
+    else:
+        form = SignUpForm()
+
+    return render(request, 'signup.html', { 'form': form, 'error': error })

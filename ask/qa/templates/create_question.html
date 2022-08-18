@@ -1,21 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %} Create Question {% endblock %}
+
+{% block content %}
 <h1>Ask Question</h1>
-  {% for e in form.non_field_errors %}
-    <div class="alert">{{ e }}</div>
-  {% endfor %}
-  <div class="form">
-    <form method="post" action="/ask/">
-      {% csrf_token %}
-        {% for field in form %}
-          <div class="form-group{% if field.errors %} alert{% endif %}">
-            <div class="form-label">
-              {{ field.label }}
-            </div>
-            <div class="form-field">
-              {{ field }}
-            </div>
-            {{ field.errors }}
-          </div>
-        {% endfor %}
-      <button type="submit" class="btn">Ask question</button>
-    </form>
-  </div>
+	{% for e in form.non_field_errors %}
+    	<div class="alert">{{ e }}</div>
+	{% endfor %}
+	<div class="form">
+		<form method="post" action="/ask/">
+			{% csrf_token %}
+			{% for field in form %}
+			<div class="form-group{% if field.errors %} alert{% endif %}">
+				<div class="form-label mb-3">
+					{{ field.label }}
+				</div>
+				<div class="form-field mb-3">
+					{{ field }}
+				</div>
+				{{ field.errors }}
+          	</div>
+        	{% endfor %}
+      		<button type="submit" class="btn btn-primary">Post question</button>
+		</form>
+	</div>
+{% endblock %}
